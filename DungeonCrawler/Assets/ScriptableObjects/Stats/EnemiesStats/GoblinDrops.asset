@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0642798bcfc1c0e449bbc91a170fb6db, type: 3}
   m_Name: GoblinDrops
   m_EditorClassIdentifier: 
-  items: []
+  items:
+  - prefab: {fileID: 5374855155958527732, guid: 7bebe5684e013fa44bacccd0fdf2cd07, type: 3}
+    dropChance: 0.55
+    minDrop: 1
+    maxDrop: 1
   money: {fileID: 11400000, guid: 0f6d440184c12264ebccb7c996194e38, type: 2}

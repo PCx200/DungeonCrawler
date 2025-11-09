@@ -38,7 +38,7 @@ public class DropSystem : MonoBehaviour
                 int itemAmount = Random.Range(item.MinDrop, item.MaxDrop + 1);
                 Vector3 spawnPos = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
                 for (int i = 0; i < itemAmount; i++)
-                    Instantiate(item.Prefab, spawnPos, Quaternion.identity);
+                    Instantiate(item.Prefab,position - spawnPos, Quaternion.identity);
             }
         }
     }

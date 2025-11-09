@@ -12,7 +12,13 @@ public class Goblin : Enemy
 
     public override void Die()
     {
-        EventBus.OnEnemyDieEvent.Publish(new EnemyDieEvent() { Enemy = this, Position = transform.position });
+        EventBus.OnEnemyDieEvent.Publish(new EnemyDieEvent()
+        {
+            Enemy = this,
+            Position = transform.position,
+            XPGivenAmount = XPAmount
+        });
+
         Destroy(gameObject);
     }
 

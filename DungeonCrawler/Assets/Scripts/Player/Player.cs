@@ -2,17 +2,32 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
     [SerializeField] NavMeshAgent agent;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [Header("Player Attributes")]
+    #region Stats
+    [SerializeField] BaseStatsData baseStatsData;
+
+    public BaseStatsData Stats => baseStatsData;
+
+    float currentHealth;
+    float currentMana;
+    float currentMovementSpeed;
+    float currentDefense;
+    #endregion
+
+    private void Awake()
     {
-        
+        currentHealth = Stats.Health;
+        currentMana = Stats.Mana;
+        currentMovementSpeed = Stats.MovementSpeed;
+        currentDefense = Stats.Defense;
     }
 
-    // Update is called once per frame
+    
+
     void Update()
     {
         Move();
@@ -27,9 +42,24 @@ public class Player : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                // задаваме дестинацията на агента
                 agent.SetDestination(hit.point);
             }
         }
     }
+
+    public void TakeDamage(DamageData damageData)
+    {
+        float damageTaken = damageData.damage * (100f / (100f + currentDefense));
+
+        currentHealth -= damageTaken;
+
+        if (currentHealth <= 0)
+        {
+            Debug.Log("Player died!");
+
+            EventBus.OnPlayerDeath.Publish(new PlayerDeathEvent());
+        }
+    }
+
+    
 }

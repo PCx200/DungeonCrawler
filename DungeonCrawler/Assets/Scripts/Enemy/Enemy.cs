@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Scripting;
 
-public abstract class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour, IDamageable
 {
     [SerializeField] string enemyName;
 
@@ -9,7 +9,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] BaseStatsData baseStatsData;
     [SerializeField] ItemDropTable itemDropTable;
 
-    public BaseStatsData BaseStatsData => baseStatsData;
+    public BaseStatsData Stats => baseStatsData;
     public ItemDropTable ItemDropTable => itemDropTable;
 
     protected float currentHealth;
@@ -17,32 +17,37 @@ public abstract class Enemy : MonoBehaviour
     protected float currentMovementSpeed;
     protected float currentDefense;
 
+    [SerializeField] int xpAmount;
+    public int XPAmount => xpAmount;
+
     protected virtual void Awake()
     {
-        if (BaseStatsData == null || ItemDropTable == null)
+        if (Stats == null || ItemDropTable == null)
         {
             Debug.LogError($"{name}: Missing required references!", this);
             enabled = false;
             return;
         }
 
-        currentHealth = BaseStatsData.Health;
-        currentMana = BaseStatsData.Mana;
-        currentMovementSpeed = BaseStatsData.MovementSpeed;
-        currentDefense = BaseStatsData.Defense;
+        currentHealth = Stats.Health;
+        currentMana = Stats.Mana;
+        currentMovementSpeed = Stats.MovementSpeed;
+        currentDefense = Stats.Defense;
     }
 
     public abstract void Move();
     public abstract void Attack();
     public abstract void Die();
 
-    public virtual void TakeDamage(float damage)
+    public void TakeDamage(DamageData damageData)
     {
-        float finalDamage = Mathf.Max(1, damage - currentDefense);
-        currentHealth -= finalDamage;
+        float damageTaken = damageData.damage * (100f / (100f + currentDefense));
+
+        currentHealth -= damageTaken;
 
         if (currentHealth <= 0)
+        {
             Die();
+        }
     }
-
 }
