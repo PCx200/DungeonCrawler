@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerCurrency : MonoBehaviour
+public class CurrencyManager : MonoBehaviour
 {
     [SerializeField] private int totalCurrency;
 
