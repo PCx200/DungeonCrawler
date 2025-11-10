@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class DropSystem : MonoBehaviour
 {
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     private void OnEnable()
     {
         EventBus.OnEnemyDieEvent.Subscribe(HandleEnemyDie);

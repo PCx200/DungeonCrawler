@@ -4,6 +4,11 @@ public class CurrencyManager : MonoBehaviour
 {
     [SerializeField] private int totalCurrency;
 
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
     private void OnEnable()
     {
         EventBus.OnCurrencyCollected.Subscribe(OnCurrencyCollected);

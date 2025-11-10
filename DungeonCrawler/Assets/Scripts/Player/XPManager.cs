@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class XPManager : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class XPManager : MonoBehaviour
     [SerializeField] int currentXP = 0;
     [SerializeField] int currentLevel = 1;
     [SerializeField] int xpToNextLevel = 100;
+
+    [SerializeField] Image XPBar;
 
     public int CurrentXP => currentXP;
     public int CurrentLevel => currentLevel;
@@ -41,6 +44,7 @@ public class XPManager : MonoBehaviour
     {
         currentXP += amount;
         Debug.Log($"Gained {amount} XP! Total XP: {currentXP}");
+        XPBar.fillAmount = (float)currentXP / xpToNextLevel;
 
         while (currentXP >= xpToNextLevel) // for multiple leveling if the xp exceedes 
         {

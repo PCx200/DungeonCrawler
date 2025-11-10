@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items:
   - prefab: {fileID: 5374855155958527732, guid: 7bebe5684e013fa44bacccd0fdf2cd07, type: 3}
-    dropChance: 0.55
+    dropChance: 0.258
     minDrop: 1
     maxDrop: 1
   money: {fileID: 11400000, guid: 0f6d440184c12264ebccb7c996194e38, type: 2}

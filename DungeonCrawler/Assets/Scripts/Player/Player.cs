@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour, IDamageable
 {
@@ -16,6 +17,8 @@ public class Player : MonoBehaviour, IDamageable
     float currentMana;
     float currentMovementSpeed;
     float currentDefense;
+
+    [SerializeField] Image HPBar;
     #endregion
 
     private void Awake()
@@ -52,6 +55,23 @@ public class Player : MonoBehaviour, IDamageable
         float damageTaken = damageData.damage * (100f / (100f + currentDefense));
 
         currentHealth -= damageTaken;
+
+        if (currentHealth <= 0)
+        {
+            Debug.Log("Player died!");
+
+            EventBus.OnPlayerDeath.Publish(new PlayerDeathEvent());
+        }
+    }
+
+    // For testing purposes only
+    public void TakeDMG()
+    {
+        float damageTaken = 10 * (100f / (100f + currentDefense));
+        Debug.Log(damageTaken);
+        currentHealth -= damageTaken;
+
+        HPBar.fillAmount = currentHealth / baseStatsData.Health;
 
         if (currentHealth <= 0)
         {
