@@ -123,9 +123,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Goblin
-  baseStatsData: {fileID: 0}
-  itemDropTable: {fileID: 0}
-  xpAmount: 85
+  baseStatsData: {fileID: 11400000, guid: 896d6b0a033a75740951822b4ed799e3, type: 2}
+  itemDropTable: {fileID: 11400000, guid: f53c7b9b5f137094283695455d1f7bf5, type: 2}
+  xpAmount: 20
 --- !u!195 &-2121821064133709486
 NavMeshAgent:
   m_ObjectHideFlags: 0

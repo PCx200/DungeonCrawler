@@ -9,12 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6710034dc1620954a94d486cca2db3ae, type: 3}
-  m_Name: PlayerStats
+  m_Script: {fileID: 11500000, guid: 8dd3a7787697c164b9fcfdd5b7001908, type: 3}
+  m_Name: PlayerProgress
   m_EditorClassIdentifier: 
-  Health: 100
-  Attack: 8
-  Defense: 10
-  MovementSpeed: 3
-  AttackSpeed: 1
-  Mana: 50
+  Level: 9
+  XP: 138
+  XPToNextLevel: 595
+  MaxHealth: 260
+  MaxAttack: 48
+  MaxDefense: 10
+  MaxMana: 50
+  MaxMovementSpeed: 3

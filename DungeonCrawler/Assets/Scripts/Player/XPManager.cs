@@ -5,14 +5,16 @@ public class XPManager : MonoBehaviour
 {
     public static XPManager Instance { get; private set; }
 
-    [SerializeField] int currentXP = 0;
-    [SerializeField] int currentLevel = 1;
-    [SerializeField] int xpToNextLevel = 100;
+    //[SerializeField] int currentXP = 0;
+    //[SerializeField] int currentLevel = 1;
+    //[SerializeField] int xpToNextLevel = 100;
+
+    [SerializeField] PlayerProgressData progressData;
 
     [SerializeField] Image XPBar;
 
-    public int CurrentXP => currentXP;
-    public int CurrentLevel => currentLevel;
+    public int CurrentXP => progressData.XP;
+    public int CurrentLevel => progressData.Level;
 
 
     private void Awake()
@@ -24,6 +26,8 @@ public class XPManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        XPBar.fillAmount = (float)progressData.XP / progressData.XPToNextLevel;
     }
     private void OnEnable()
     {
@@ -42,11 +46,11 @@ public class XPManager : MonoBehaviour
 
     private void GainXP(int amount)
     {
-        currentXP += amount;
-        Debug.Log($"Gained {amount} XP! Total XP: {currentXP}");
-        XPBar.fillAmount = (float)currentXP / xpToNextLevel;
+        progressData.XP += amount;
+        Debug.Log($"Gained {amount} XP! Total XP: {progressData.XP}");
+        XPBar.fillAmount = (float)progressData.XP / progressData.XPToNextLevel;
 
-        while (currentXP >= xpToNextLevel) // for multiple leveling if the xp exceedes 
+        while (progressData.XP >= progressData.XPToNextLevel) // for multiple leveling if the xp exceedes 
         {
             LevelUp();
         }
@@ -54,11 +58,11 @@ public class XPManager : MonoBehaviour
 
     private void LevelUp()
     {
-        currentLevel++;
-        currentXP -= xpToNextLevel;
-        xpToNextLevel = Mathf.RoundToInt(xpToNextLevel * 1.25f);
-        Debug.Log($"Level up! New Level: {currentLevel}");
+        progressData.Level++;
+        progressData.XP -= progressData.XPToNextLevel;
+        progressData.XPToNextLevel = Mathf.RoundToInt(progressData.XPToNextLevel * 1.25f);
+        Debug.Log($"Level up! New Level: {progressData.Level}");
 
-        EventBus.OnLevelUp.Publish(new LevelUpEvent { NewLevel = currentLevel });
+        EventBus.OnLevelUp.Publish(new LevelUpEvent { NewLevel = progressData.Level });
     }
 }

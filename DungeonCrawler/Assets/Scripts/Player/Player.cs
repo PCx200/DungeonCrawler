@@ -9,11 +9,13 @@ public class Player : MonoBehaviour, IDamageable
 
     [Header("Player Attributes")]
     #region Stats
-    [SerializeField] BaseStatsData baseStatsData;
+    [SerializeField] BaseStatsData baseStatsData; // Base stats created when you first play the game
+    [SerializeField] PlayerProgressData progressData; // The current stats your character has 
 
     public BaseStatsData Stats => baseStatsData;
 
     float currentHealth;
+    float currentAttack;
     float currentMana;
     float currentMovementSpeed;
     float currentDefense;
@@ -23,17 +25,20 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Awake()
     {
-        currentHealth = Stats.Health;
-        currentMana = Stats.Mana;
-        currentMovementSpeed = Stats.MovementSpeed;
-        currentDefense = Stats.Defense;
+        InitializeBaseStats();
     }
-
-    
-
     void Update()
     {
         Move();
+    }
+
+    private void InitializeBaseStats()
+    {
+        currentHealth = progressData.MaxHealth;
+        currentAttack = progressData.MaxAttack;
+        currentMana = progressData.MaxMana;
+        currentMovementSpeed = progressData.MaxMovementSpeed;
+        currentDefense = progressData.MaxDefense;
     }
 
     void Move()
@@ -71,7 +76,7 @@ public class Player : MonoBehaviour, IDamageable
         Debug.Log(damageTaken);
         currentHealth -= damageTaken;
 
-        HPBar.fillAmount = currentHealth / baseStatsData.Health;
+        HPBar.fillAmount = currentHealth / progressData.MaxHealth;
 
         if (currentHealth <= 0)
         {
@@ -81,5 +86,44 @@ public class Player : MonoBehaviour, IDamageable
         }
     }
 
-    
+    private void OnLevelUp(LevelUpEvent e)
+    {
+        progressData.MaxHealth += 20;
+        progressData.MaxAttack += 5;
+
+        HPBar.fillAmount = currentHealth / progressData.MaxHealth;
+
+        Debug.Log($"{ currentHealth}, { progressData.MaxHealth }");
+
+        Debug.Log($"Player leveled up to {e.NewLevel}! Stats increased: +{20} HP, +{5} ATK.");
+    }
+
+    private void OnStatsReset(PlayerStatsResetEvent e)
+    {
+        progressData.ResetStats(baseStatsData);
+
+        InitializeBaseStats();
+
+        HPBar.fillAmount = currentHealth / progressData.MaxHealth;
+
+        EventBus.OnStatsReset.Publish(new PlayerStatsResetEvent());
+
+        Debug.Log("Player stats reseted!");
+    }
+
+    public void ResetStats()
+    {
+        OnStatsReset(new PlayerStatsResetEvent { });
+    }
+    private void OnEnable()
+    {
+        EventBus.OnLevelUp.Subscribe(OnLevelUp);
+        EventBus.OnStatsReset.Subscribe(OnStatsReset);
+    }
+
+    private void OnDisable()
+    {
+        EventBus.OnLevelUp.Unsubscribe(OnLevelUp);
+        EventBus.OnStatsReset.Unsubscribe(OnStatsReset);
+    }
 }
