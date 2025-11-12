@@ -9,12 +9,12 @@ public class XPManager : MonoBehaviour
     //[SerializeField] int currentLevel = 1;
     //[SerializeField] int xpToNextLevel = 100;
 
-    [SerializeField] PlayerProgressData progressData;
+    [SerializeField] Player player;
 
     [SerializeField] Image XPBar;
 
-    public int CurrentXP => progressData.XP;
-    public int CurrentLevel => progressData.Level;
+    public int CurrentXP => player.ProgressData.XP;
+    public int CurrentLevel => player.ProgressData.Level;
 
 
     private void Awake()
@@ -27,7 +27,7 @@ public class XPManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        XPBar.fillAmount = (float)progressData.XP / progressData.XPToNextLevel;
+        XPBar.fillAmount = (float)player.ProgressData.XP / player.ProgressData.XPToNextLevel;
     }
     private void OnEnable()
     {
@@ -46,23 +46,13 @@ public class XPManager : MonoBehaviour
 
     private void GainXP(int amount)
     {
-        progressData.XP += amount;
-        Debug.Log($"Gained {amount} XP! Total XP: {progressData.XP}");
-        XPBar.fillAmount = (float)progressData.XP / progressData.XPToNextLevel;
+        player.ProgressData.XP += amount;
+        Debug.Log($"Gained {amount} XP! Total XP: {player.ProgressData.XP}");
+        XPBar.fillAmount = (float)player.ProgressData.XP / player.ProgressData.XPToNextLevel;
 
-        while (progressData.XP >= progressData.XPToNextLevel) // for multiple leveling if the xp exceedes 
+        while (player.ProgressData.XP >= player.ProgressData.XPToNextLevel) // for multiple leveling if the xp exceedes 
         {
-            LevelUp();
+            player.LevelUp();
         }
-    }
-
-    private void LevelUp()
-    {
-        progressData.Level++;
-        progressData.XP -= progressData.XPToNextLevel;
-        progressData.XPToNextLevel = Mathf.RoundToInt(progressData.XPToNextLevel * 1.25f);
-        Debug.Log($"Level up! New Level: {progressData.Level}");
-
-        EventBus.OnLevelUp.Publish(new LevelUpEvent { NewLevel = progressData.Level });
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -5,6 +6,9 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour, IDamageable
 {
+    [SerializeField] string playerName;
+    public string Name => playerName;
+
     [SerializeField] NavMeshAgent agent;
 
     [Header("Player Attributes")]
@@ -14,13 +18,21 @@ public class Player : MonoBehaviour, IDamageable
 
     public BaseStatsData Stats => baseStatsData;
 
+    public PlayerProgressData ProgressData => progressData;
+
     float currentHealth;
+    public float CurrentHealth => currentHealth;
+    public float MaxHealth => progressData.MaxHealth;
+
     float currentAttack;
     float currentMana;
     float currentMovementSpeed;
     float currentDefense;
 
-    [SerializeField] Image HPBar;
+    int currentLvl;
+    public int CurrentLevel => progressData.Level;
+
+    [SerializeField] List<Image> HPBars;
     #endregion
 
     private void Awake()
@@ -39,6 +51,7 @@ public class Player : MonoBehaviour, IDamageable
         currentMana = progressData.MaxMana;
         currentMovementSpeed = progressData.MaxMovementSpeed;
         currentDefense = progressData.MaxDefense;
+        currentLvl = progressData.Level;
     }
 
     void Move()
@@ -61,6 +74,12 @@ public class Player : MonoBehaviour, IDamageable
 
         currentHealth -= damageTaken;
 
+        EventBus.OnPlayerDamaged.Publish(new PlayerDamagedEvent
+        {
+            CurrentHealth = currentHealth,
+            MaxHealth = progressData.MaxHealth
+        });
+
         if (currentHealth <= 0)
         {
             Debug.Log("Player died!");
@@ -76,7 +95,11 @@ public class Player : MonoBehaviour, IDamageable
         Debug.Log(damageTaken);
         currentHealth -= damageTaken;
 
-        HPBar.fillAmount = currentHealth / progressData.MaxHealth;
+        EventBus.OnPlayerDamaged.Publish(new PlayerDamagedEvent
+        {
+            CurrentHealth = currentHealth,
+            MaxHealth = progressData.MaxHealth
+        }); 
 
         if (currentHealth <= 0)
         {
@@ -86,44 +109,33 @@ public class Player : MonoBehaviour, IDamageable
         }
     }
 
-    private void OnLevelUp(LevelUpEvent e)
+    public void LevelUp()
     {
+        progressData.Level++;
+        progressData.XP -= progressData.XPToNextLevel;
+        progressData.XPToNextLevel = Mathf.RoundToInt(progressData.XPToNextLevel * 1.25f);
+
+        Debug.Log($"Level up! New Level: {ProgressData.Level}");
+
         progressData.MaxHealth += 20;
         progressData.MaxAttack += 5;
 
-        HPBar.fillAmount = currentHealth / progressData.MaxHealth;
+        currentHealth = progressData.MaxHealth;
+        currentLvl = progressData.Level;
+
+        EventBus.OnLevelUp.Publish(new LevelUpEvent { NewLevel = progressData.Level });
 
         Debug.Log($"{ currentHealth}, { progressData.MaxHealth }");
 
-        Debug.Log($"Player leveled up to {e.NewLevel}! Stats increased: +{20} HP, +{5} ATK.");
+        Debug.Log($"Player leveled up to {currentLvl}! Stats increased: +{20} HP, +{5} ATK.");
     }
 
-    private void OnStatsReset(PlayerStatsResetEvent e)
+    public void ResetStats()
     {
         progressData.ResetStats(baseStatsData);
 
         InitializeBaseStats();
 
-        HPBar.fillAmount = currentHealth / progressData.MaxHealth;
-
-        EventBus.OnStatsReset.Publish(new PlayerStatsResetEvent());
-
         Debug.Log("Player stats reseted!");
-    }
-
-    public void ResetStats()
-    {
-        OnStatsReset(new PlayerStatsResetEvent { });
-    }
-    private void OnEnable()
-    {
-        EventBus.OnLevelUp.Subscribe(OnLevelUp);
-        EventBus.OnStatsReset.Subscribe(OnStatsReset);
-    }
-
-    private void OnDisable()
-    {
-        EventBus.OnLevelUp.Unsubscribe(OnLevelUp);
-        EventBus.OnStatsReset.Unsubscribe(OnStatsReset);
     }
 }

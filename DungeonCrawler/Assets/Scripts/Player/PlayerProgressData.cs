@@ -26,7 +26,5 @@ public class PlayerProgressData : ScriptableObject
         MaxDefense = baseStats.Defense;
         MaxMana = baseStats.Mana;
         MaxMovementSpeed = baseStats.MovementSpeed;
-
-        EventBus.OnStatsReset.Publish(new PlayerStatsResetEvent { });
     }
 }
