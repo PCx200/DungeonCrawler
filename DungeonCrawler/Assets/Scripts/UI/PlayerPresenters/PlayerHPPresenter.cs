@@ -13,12 +13,15 @@ public class PlayerHPPresenter : UIPresenter
     {
         EventBus.OnPlayerDamaged.Subscribe(OnPlayerDamaged);
         EventBus.OnLevelUp.Subscribe(OnLevelUp);
-        
+        EventBus.OnStatsReset.Subscribe(OnStatsReset);
+
     }
 
     private void OnDisable()
     {
         EventBus.OnPlayerDamaged.Unsubscribe(OnPlayerDamaged);
+        EventBus.OnLevelUp.Unsubscribe(OnLevelUp);
+        EventBus.OnStatsReset.Unsubscribe(OnStatsReset);
     }
 
     private void OnPlayerDamaged(PlayerDamagedEvent e)
@@ -26,6 +29,10 @@ public class PlayerHPPresenter : UIPresenter
         RefreshUI();
     }
     private void OnLevelUp(LevelUpEvent e)
+    {
+        RefreshUI();
+    }
+    private void OnStatsReset(PlayerStatsResetEvent e)
     {
         RefreshUI();
     }

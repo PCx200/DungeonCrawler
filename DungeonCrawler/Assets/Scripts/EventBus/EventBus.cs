@@ -7,6 +7,7 @@ public static class EventBus
     public static GameEvent<LevelUpEvent> OnLevelUp = new GameEvent<LevelUpEvent>();
     public static GameEvent<PlayerDeathEvent> OnPlayerDeath = new GameEvent<PlayerDeathEvent>();
     public static GameEvent<PlayerDamagedEvent> OnPlayerDamaged = new GameEvent<PlayerDamagedEvent>();
+    public static GameEvent<EnemyDamagedEvent> OnEnemyDamaged = new GameEvent<EnemyDamagedEvent>();
     public static GameEvent<PlayerStatsResetEvent> OnStatsReset = new GameEvent<PlayerStatsResetEvent>();
 
 }
@@ -29,6 +30,9 @@ public struct PlayerDamagedEvent
 {
     public float CurrentHealth;
     public float MaxHealth;
+}public struct EnemyDamagedEvent 
+{
+    public Enemy Enemy;
 }
 
 public struct PlayerStatsResetEvent { }

@@ -10,6 +10,11 @@ public class DamageData
     public DamageType damageType;
     public GameObject source;
 
+    public DamageData(float damage)
+    { 
+        this.damage = damage;
+    }
+
     public DamageData(float damage, DamageType type, float slowDown = 0f, float slowDownTime = 0f, GameObject source = null)
     {
         this.damage = damage;

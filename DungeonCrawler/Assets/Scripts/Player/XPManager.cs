@@ -48,7 +48,7 @@ public class XPManager : MonoBehaviour
     {
         player.ProgressData.XP += amount;
         Debug.Log($"Gained {amount} XP! Total XP: {player.ProgressData.XP}");
-        XPBar.fillAmount = (float)player.ProgressData.XP / player.ProgressData.XPToNextLevel;
+
 
         while (player.ProgressData.XP >= player.ProgressData.XPToNextLevel) // for multiple leveling if the xp exceedes 
         {

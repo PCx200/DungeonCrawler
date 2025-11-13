@@ -19,14 +19,20 @@ public class PlayerLevelPresenter : UIPresenter
     {
         RefreshUI();
     }
+    private void OnStatsReset(PlayerStatsResetEvent e)
+    {
+        RefreshUI();
+    }
 
     private void OnEnable()
     {
         EventBus.OnLevelUp.Subscribe(OnLevelUp);
+        EventBus.OnStatsReset.Subscribe(OnStatsReset);
     }
 
     private void OnDisable()
     {
-        EventBus.OnLevelUp.Unsubscribe(OnLevelUp); 
+        EventBus.OnLevelUp.Unsubscribe(OnLevelUp);
+        EventBus.OnStatsReset.Unsubscribe(OnStatsReset);
     }
 }

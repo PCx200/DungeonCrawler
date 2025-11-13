@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -91,7 +92,7 @@ public class Player : MonoBehaviour, IDamageable
     // For testing purposes only
     public void TakeDMG()
     {
-        float damageTaken = 10 * (100f / (100f + currentDefense));
+        float damageTaken = (float)Math.Round(10 * (100f / (100f + currentDefense)), 1);
         Debug.Log(damageTaken);
         currentHealth -= damageTaken;
 
@@ -135,6 +136,8 @@ public class Player : MonoBehaviour, IDamageable
         progressData.ResetStats(baseStatsData);
 
         InitializeBaseStats();
+
+        EventBus.OnStatsReset.Publish(new PlayerStatsResetEvent { });
 
         Debug.Log("Player stats reseted!");
     }
