@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -12,7 +13,7 @@ public class Player : MonoBehaviour, IDamageable
 
     [SerializeField] NavMeshAgent agent;
 
-    [Header("Player Attributes")]
+    [Header("Stats")]
     #region Stats
     [SerializeField] BaseStatsData baseStatsData; // Base stats created when you first play the game
     [SerializeField] PlayerProgressData progressData; // The current stats your character has 
@@ -30,19 +31,33 @@ public class Player : MonoBehaviour, IDamageable
     float currentMovementSpeed;
     float currentDefense;
 
+    float attackRange;
+
     int currentLvl;
     public int CurrentLevel => progressData.Level;
 
     [SerializeField] List<Image> HPBars;
     #endregion
 
+    [Header("Attack Attributes")]
+    [SerializeField] SphereCollider attackCollider;
+    [SerializeField] SpriteRenderer attackRangeSprite;
+
     private void Awake()
     {
         InitializeBaseStats();
     }
+
+    void Start()
+    {
+        attackCollider.radius = attackRange;
+        attackRangeSprite.transform.localScale = new Vector2(attackRange * 2, attackRange * 2);
+    }
+
     void Update()
     {
         Move();
+        //ShowRange();
     }
 
     private void InitializeBaseStats()
@@ -53,6 +68,9 @@ public class Player : MonoBehaviour, IDamageable
         currentMovementSpeed = progressData.MaxMovementSpeed;
         currentDefense = progressData.MaxDefense;
         currentLvl = progressData.Level;
+
+
+        attackRange = baseStatsData.AttackRange;
     }
 
     void Move()
@@ -66,6 +84,18 @@ public class Player : MonoBehaviour, IDamageable
             {
                 agent.SetDestination(hit.point);
             }
+        }
+    }
+
+    void ShowRange()
+    {
+        if (Mouse.current.leftButton.wasPressedThisFrame || Mouse.current.leftButton.isPressed)
+        {
+            attackRangeSprite.gameObject.SetActive(true);
+        }
+        else
+        {
+            attackRangeSprite.gameObject.SetActive(false);
         }
     }
 

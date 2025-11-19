@@ -10,4 +10,7 @@ public class BaseStatsData : ScriptableObject
     public float MovementSpeed;
     public float AttackSpeed;
     public float Mana;
+
+    [Header("Attack Range")]
+    public float AttackRange;
 }

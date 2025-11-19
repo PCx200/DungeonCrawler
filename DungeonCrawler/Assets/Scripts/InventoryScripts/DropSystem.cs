@@ -29,21 +29,20 @@ public class DropSystem : MonoBehaviour
         {
             int amount = dropTable.Money.Amount;
             GameObject moneyInstance = Instantiate(dropTable.Money.Prefab, position, Quaternion.identity);
-
-            CurrencyPicker picker = moneyInstance.GetComponent<CurrencyPicker>();
-            if (picker != null)
-                picker.Initialize(amount);
+            moneyInstance.GetComponent<CurrencyPicker>().Initialize(amount);
         }
 
         // Drop items if lucky 
-        foreach (var item in dropTable.Items)
+        foreach (var dropEntry in dropTable.Items)
         {
-            if (Random.value <= item.DropChance)
+            if (Random.value <= dropEntry.DropChance)
             {
-                int itemAmount = Random.Range(item.MinDrop, item.MaxDrop + 1);
+                int itemAmount = Random.Range(dropEntry.MinAmount, dropEntry.MaxAmount + 1);
                 Vector3 spawnPos = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
                 for (int i = 0; i < itemAmount; i++)
-                    Instantiate(item.Prefab,position - spawnPos, Quaternion.identity);
+                { 
+                    Instantiate(dropEntry.Item.Prefab,position - spawnPos, Quaternion.identity);
+                }
             }
         }
     }

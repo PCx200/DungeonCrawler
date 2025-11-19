@@ -6,11 +6,12 @@ using UnityEngine;
 public class ItemDropTable : ScriptableObject
 {
     [Header("Possible Drops")]
-    [SerializeField] List<Item> items;
+    [SerializeField] List<DropEntry> items;
 
     [Header("Money Drop")]
     [SerializeField] Currency money;
 
-    public List<Item> Items => items;
+    public List<DropEntry> Items => items;
     public Currency Money => money;
 }
+    

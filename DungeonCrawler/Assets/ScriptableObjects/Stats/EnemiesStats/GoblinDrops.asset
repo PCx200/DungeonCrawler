@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: GoblinDrops
   m_EditorClassIdentifier: 
   items:
-  - prefab: {fileID: 5374855155958527732, guid: 7bebe5684e013fa44bacccd0fdf2cd07, type: 3}
-    dropChance: 0.258
-    minDrop: 1
-    maxDrop: 1
+  - item: {fileID: 11400000, guid: 87bd2a9da6969e246a67e6971c6c50fa, type: 2}
+    dropChance: 0.768
+    minAmount: 1
+    maxAmount: 1
+  - item: {fileID: 11400000, guid: da934c46bb9a7dc4ca49cd3b790f9469, type: 2}
+    dropChance: 0.139
+    minAmount: 1
+    maxAmount: 1
   money: {fileID: 11400000, guid: 0f6d440184c12264ebccb7c996194e38, type: 2}

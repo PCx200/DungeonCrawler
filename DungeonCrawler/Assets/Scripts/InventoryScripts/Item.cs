@@ -1,15 +1,35 @@
 using UnityEngine;
 
-[System.Serializable]
-public class Item
+public class Item : MonoBehaviour
 {
-    [SerializeField] GameObject prefab; // item that is going to be dropped
-    [SerializeField, Range(0f, 1f)] float dropChance; // the chance that item is dropped
-    [SerializeField] int minDrop;
-    [SerializeField] int maxDrop;
+    [SerializeField] ItemData itemData;
+    [SerializeField] float timeToDespawn = 30;
 
-    public GameObject Prefab => prefab;
-    public float DropChance => dropChance;
-    public int MinDrop => minDrop;
-    public int MaxDrop => maxDrop;
+    public ItemData ItemData => itemData;
+
+    private void Start()
+    {
+        Despawn();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            if (InventoryManager.Instance.TryAddItem(itemData))
+            {
+                EventBus.OnItemTaken.Publish(new TakeItemEvent {Item = this});
+                Destroy(gameObject);
+            }
+            else {
+                Debug.Log("Inventory full!");
+            }
+            
+        }
+    }
+
+    void Despawn()
+    {
+        Destroy(gameObject, timeToDespawn);
+    }
 }

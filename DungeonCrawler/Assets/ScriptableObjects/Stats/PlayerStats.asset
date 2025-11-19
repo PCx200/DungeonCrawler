@@ -18,3 +18,4 @@ MonoBehaviour:
   MovementSpeed: 3
   AttackSpeed: 1
   Mana: 50
+  AttackRange: 5
