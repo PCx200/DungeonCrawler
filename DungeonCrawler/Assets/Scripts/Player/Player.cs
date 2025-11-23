@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -35,6 +36,7 @@ public class Player : MonoBehaviour, IDamageable
 
     int currentLvl;
     public int CurrentLevel => progressData.Level;
+    public float CurrentAttack => progressData.MaxAttack;
 
     [SerializeField] List<Image> HPBars;
     #endregion
@@ -43,6 +45,11 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] SphereCollider attackCollider;
     [SerializeField] SpriteRenderer attackRangeSprite;
 
+    [SerializeField] Bullet bulletPrefab;
+    [SerializeField] Transform projectileSpawnPoint;
+
+    [SerializeField] float lastAttackTime;
+
     private void Awake()
     {
         InitializeBaseStats();
@@ -50,6 +57,7 @@ public class Player : MonoBehaviour, IDamageable
 
     void Start()
     {
+        agent.speed = currentMovementSpeed;
         attackCollider.radius = attackRange;
         attackRangeSprite.transform.localScale = new Vector2(attackRange * 2, attackRange * 2);
     }
@@ -58,6 +66,8 @@ public class Player : MonoBehaviour, IDamageable
     {
         Move();
         //ShowRange();
+        Attack();
+        KillAllEnemies(); 
     }
 
     private void InitializeBaseStats()
@@ -87,6 +97,33 @@ public class Player : MonoBehaviour, IDamageable
         }
     }
 
+    void Attack()
+    {
+        if ((Mouse.current.leftButton.wasPressedThisFrame || Mouse.current.leftButton.isPressed) && Time.time - lastAttackTime >= 1 / baseStatsData.AttackSpeed)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+            if (!Physics.Raycast(ray, out RaycastHit hit))
+                return;
+
+            Vector3 targetPoint = hit.point;
+
+            Vector3 direction = (targetPoint - projectileSpawnPoint.position).normalized;
+
+            DamageData dmg = new DamageData(
+                currentAttack,
+                DamageType.Physical,
+                0, 0,
+                gameObject
+            );
+
+            Bullet bulletObj = Instantiate(bulletPrefab, projectileSpawnPoint.position, Quaternion.LookRotation(direction));
+
+            bulletObj.GetComponent<Bullet>().Initialize(dmg);
+
+            lastAttackTime = Time.time;
+        }   
+    }
+
     void ShowRange()
     {
         if (Mouse.current.leftButton.wasPressedThisFrame || Mouse.current.leftButton.isPressed)
@@ -113,9 +150,7 @@ public class Player : MonoBehaviour, IDamageable
 
         if (currentHealth <= 0)
         {
-            Debug.Log("Player died!");
-
-            EventBus.OnPlayerDeath.Publish(new PlayerDeathEvent());
+            Die();
         }
     }
 
@@ -134,10 +169,13 @@ public class Player : MonoBehaviour, IDamageable
 
         if (currentHealth <= 0)
         {
-            Debug.Log("Player died!");
-
-            EventBus.OnPlayerDeath.Publish(new PlayerDeathEvent());
+            Die();
         }
+    }
+    private void Die()
+    {
+        Debug.Log("Player died!");
+        EventBus.OnPlayerDeath.Publish(new PlayerDeathEvent());
     }
 
     public void LevelUp()
@@ -170,5 +208,23 @@ public class Player : MonoBehaviour, IDamageable
         EventBus.OnStatsReset.Publish(new PlayerStatsResetEvent { });
 
         Debug.Log("Player stats reseted!");
+    }
+
+    public void KillAllEnemies()
+    {
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            Enemy[] allEnemies = FindObjectsByType<Enemy>(sortMode: FindObjectsSortMode.None);
+
+
+            foreach (Enemy enemy in allEnemies)
+            {
+                //if (Vector3.Distance(transform.position, enemy.transform.position) < attackRange)
+                //{
+                    enemy.Die();
+                //}    
+            }
+        }
+
     }
 }

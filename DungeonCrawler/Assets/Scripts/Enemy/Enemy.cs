@@ -45,7 +45,7 @@ using UnityEngine;
 
         public void TakeDamage(DamageData damageData)
         {
-            float damageTaken = (float)Math.Round(damageData.damage * (100f / (100f + currentDefense)), 1);
+            float damageTaken = damageData.damage * (100f / (100f + currentDefense));
 
             currentHealth -= damageTaken;
 

@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
@@ -9,7 +10,7 @@ public class EnemyHPTextPresenter : UIPresenter
 
     public override void RefreshUI()
     {
-        hpText.text = $"{enemy.CurrentHealth}/{enemy.MaxHealth}";
+        hpText.text = $"{(float)Math.Round(enemy.CurrentHealth, 1)}/{enemy.MaxHealth}";
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
