@@ -6,7 +6,7 @@ public class Slot : MonoBehaviour
 {
     enum SlotType {Empty, Helmet, Chestplate, Leggings, Gloves, Boots, Weapon, HPPotion};
     [SerializeField] SlotType slotType;
-    [SerializeField] Sprite background;     
+    [SerializeField] Sprite background;      
     [SerializeField] bool isEmpty;
     [SerializeField] int amount;
     public ItemData ItemData;
@@ -14,7 +14,7 @@ public class Slot : MonoBehaviour
 
     public bool IsEmpty => isEmpty;
     public int Amount => amount;
-
+    //
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
