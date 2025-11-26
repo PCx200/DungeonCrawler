@@ -1,35 +1,46 @@
-using UnityEngine;
+    using UnityEngine;
 
-public class Item : MonoBehaviour
-{
-    [SerializeField] ItemData itemData;
-    [SerializeField] float timeToDespawn = 30;
-
-    public ItemData ItemData => itemData;
-
-    private void Start()
+    public class Item : MonoBehaviour
     {
-        Despawn();
-    }
+        [SerializeField] ItemData itemData;
+        [SerializeField] float timeToDespawn = 30;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
+        public ItemData ItemData => itemData;
+
+        private void Start()
         {
-            if (InventoryManager.Instance.TryAddItem(itemData))
+            Despawn();
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {   
+            if (other.CompareTag("Player"))
             {
-                EventBus.OnItemTaken.Publish(new TakeItemEvent {Item = this});
-                Destroy(gameObject);
+                Inventory inventory = other.GetComponentInChildren<Inventory>();
+
+                Slot slot = inventory.TryAddItem(this);
+
+                if (slot != null)
+                {
+                    EventBus.OnItemTaken.Publish(new TakeItemEvent
+                    {
+                        Inventory = inventory,
+                        Item = this,
+                        Slot = slot,
+                        Amount = slot.Amount
+                    });
+
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    Debug.Log("Inventory full!");
+                }
             }
-            else {
-                Debug.Log("Inventory full!");
-            }
-            
+        }
+
+        void Despawn()
+        {
+            Destroy(gameObject, timeToDespawn);
         }
     }
-
-    void Despawn()
-    {
-        Destroy(gameObject, timeToDespawn);
-    }
-}

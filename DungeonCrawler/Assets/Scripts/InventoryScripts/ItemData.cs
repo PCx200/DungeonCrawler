@@ -6,6 +6,7 @@ public class ItemData : ScriptableObject
 {
     [Header("General Info")]
     [SerializeField] string itemName;
+    [SerializeField] ItemType itemType;
     [SerializeField] Sprite icon;
 
     [Header("Stacking")]
@@ -18,4 +19,8 @@ public class ItemData : ScriptableObject
     public bool IsStackable => isStackable;
     public int MaxAmount => maxAmount;
     public GameObject Prefab => prefab;
+
+    public Sprite Icon => icon;
 }
+
+enum ItemType { None, Helmet, Chestplate, Leggings, Gloves, Boots, Weapon, HPPotion }

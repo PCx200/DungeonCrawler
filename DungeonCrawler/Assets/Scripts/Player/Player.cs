@@ -50,6 +50,7 @@ public class Player : MonoBehaviour, IDamageable
 
     [SerializeField] float lastAttackTime;
 
+
     private void Awake()
     {
         InitializeBaseStats();
@@ -67,7 +68,7 @@ public class Player : MonoBehaviour, IDamageable
         Move();
         //ShowRange();
         Attack();
-        KillAllEnemies(); 
+        KillAllEnemies();
     }
 
     private void InitializeBaseStats()
@@ -222,7 +223,7 @@ public class Player : MonoBehaviour, IDamageable
                 //if (Vector3.Distance(transform.position, enemy.transform.position) < attackRange)
                 //{
                     enemy.Die();
-                //}    
+                //}
             }
         }
 

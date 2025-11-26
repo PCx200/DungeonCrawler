@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 8580706244210360493}
   - component: {fileID: 4562635921646711714}
   - component: {fileID: -5608025367676226606}
-  m_Layer: 0
-  m_Name: Pistol
+  m_Layer: 6
+  m_Name: Slinger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

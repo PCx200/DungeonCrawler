@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5274666612961029070}
   - component: {fileID: 4700785524308553128}
   - component: {fileID: 4724475018435703375}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: HPPotion
   m_TagString: Untagged
   m_Icon: {fileID: 0}

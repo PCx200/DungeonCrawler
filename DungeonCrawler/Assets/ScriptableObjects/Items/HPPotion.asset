@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: HPPotion
   m_EditorClassIdentifier: 
   itemName: HPPotion
-  icon: {fileID: 21300000, guid: 79a82efaa6ac5174a98c8ba7f9f20191, type: 3}
+  itemType: 7
+  icon: {fileID: -772837685, guid: 225d7537592a5b04f95a0076084c9f79, type: 3}
   isStackable: 1
   maxAmount: 5
   prefab: {fileID: 5374855155958527732, guid: 7bebe5684e013fa44bacccd0fdf2cd07, type: 3}

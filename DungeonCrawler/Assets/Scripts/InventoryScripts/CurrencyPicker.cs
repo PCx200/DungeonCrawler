@@ -7,6 +7,7 @@ public class CurrencyPicker : MonoBehaviour
     public void Initialize(int value)
     { 
         amount = value;
+        Destroy(gameObject, 30);
     }
 
     private void OnTriggerEnter(Collider other)
