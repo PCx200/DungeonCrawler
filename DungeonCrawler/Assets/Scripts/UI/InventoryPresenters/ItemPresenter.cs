@@ -1,3 +1,4 @@
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,6 +7,7 @@ public class ItemPresenter : UIPresenter
 {
     [SerializeField] Slot slot;
     [SerializeField] Sprite itemSprite;
+    [SerializeField] TextMeshProUGUI itemCountText;
 
     private void OnEnable()
     {
@@ -27,6 +29,7 @@ public class ItemPresenter : UIPresenter
     {
         if (e.Slot != slot) return;
         itemSprite = e.Item.ItemData.Icon;
+        itemCountText.text = $"{e.Slot.Amount}";
         RefreshUI();
     }
 }

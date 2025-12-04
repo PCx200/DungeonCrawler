@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerMoneyPresenter : UIPresenter
 {
     [SerializeField] TextMeshProUGUI moneyText;
+
     private void OnEnable()
     {
         EventBus.OnCurrencyCollected.Subscribe(OnMoneyCollected);
@@ -17,7 +18,7 @@ public class PlayerMoneyPresenter : UIPresenter
 
     public override void RefreshUI()
     {
-        moneyText.text = $"{CurrencyManager.Instance.CurrentAmount}";
+         moneyText.text = $"{CurrencyManager.Instance.CurrentAmount}";
     }
     void OnMoneyCollected(CurrencyCollectedEvent e)
     { 

@@ -301,6 +301,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 2789237127602932762, guid: 3b042b968b03fea4abac9260cf86c335, type: 3}
   projectileSpawnPoint: {fileID: 1687917803173101750}
   lastAttackTime: 0
+  inventory: {fileID: 8375029621667920412}
 --- !u!1 &8659804985381773992
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,5 +349,4 @@ MonoBehaviour:
   items: []
   slots:
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  inventorySlots: {fileID: 0}

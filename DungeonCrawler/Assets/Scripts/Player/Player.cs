@@ -50,6 +50,9 @@ public class Player : MonoBehaviour, IDamageable
 
     [SerializeField] float lastAttackTime;
 
+    [Header("Inventory")]
+    [SerializeField] Inventory inventory;
+
 
     private void Awake()
     {
@@ -69,6 +72,7 @@ public class Player : MonoBehaviour, IDamageable
         //ShowRange();
         Attack();
         KillAllEnemies();
+        Heal();
     }
 
     private void InitializeBaseStats()
@@ -227,5 +231,15 @@ public class Player : MonoBehaviour, IDamageable
             }
         }
 
+    }
+
+    void Heal()
+    {
+        if (Keyboard.current.eKey.wasPressedThisFrame && currentHealth < MaxHealth && inventory.GetSlot(0).Amount > 0)
+        {
+            //inventory.RemoveItem(inventory.GetSlot(0).item);
+            currentHealth += 10;
+            EventBus.OnPlayerHealed.Publish(new PlayerHealedEvent { HealAmount = 10, CurrentHealth = currentHealth });
+        }
     }
 }

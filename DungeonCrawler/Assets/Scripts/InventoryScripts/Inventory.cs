@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class Inventory : MonoBehaviour
 {
@@ -28,7 +26,6 @@ public class Inventory : MonoBehaviour
             {
                 slot.IncreaseAmount();
                 slot.ItemData = item.ItemData;
-                slot.CountText.text = $"{slot.Amount}";
                 return slot;
             }
             return null;
@@ -41,18 +38,26 @@ public class Inventory : MonoBehaviour
             {
                 slot.ItemData = item.ItemData;
                 slot.IncreaseAmount();
-                slot.CountText.text = $"";
                 return slot;
             }
 
             if (slot.ItemData == item.ItemData && slot.Amount < item.ItemData.MaxAmount)
             {
                 slot.IncreaseAmount();
-                slot.CountText.text = $"{slot.Amount}";
                 return slot;
             }
         }
 
         return null;
+    }
+
+    public void RemoveItem(Item item)
+    {
+        items.Remove(item.ItemData);
+    }
+
+    public Slot GetSlot(int index)
+    {
+        return slots[index];
     }
 }

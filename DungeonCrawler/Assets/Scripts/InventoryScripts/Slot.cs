@@ -10,7 +10,6 @@ public class Slot : MonoBehaviour
     [SerializeField] bool isEmpty;
     [SerializeField] int amount;
     public ItemData ItemData;
-    public TextMeshProUGUI CountText;
 
     public bool IsEmpty => isEmpty;
     public int Amount => amount;
@@ -30,5 +29,9 @@ public class Slot : MonoBehaviour
     public void IncreaseAmount()
     {
         amount++;
+    }
+    public void DecreaseAmount()
+    {
+        amount--;
     }
 }

@@ -171,5 +171,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5988754287e2614c97df5707c4fa51d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: 472dcb91662d9744b9742bcc13e8085d, type: 2}
+  ItemData: {fileID: 11400000, guid: 472dcb91662d9744b9742bcc13e8085d, type: 2}
   timeToDespawn: 30

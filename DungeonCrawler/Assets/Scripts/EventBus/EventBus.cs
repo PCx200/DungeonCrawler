@@ -10,6 +10,7 @@ public static class EventBus
     public static GameEvent<EnemyDamagedEvent> OnEnemyDamaged = new GameEvent<EnemyDamagedEvent>();
     public static GameEvent<PlayerStatsResetEvent> OnStatsReset = new GameEvent<PlayerStatsResetEvent>();
     public static GameEvent<TakeItemEvent> OnItemTaken = new GameEvent<TakeItemEvent>();
+    public static GameEvent<PlayerHealedEvent> OnPlayerHealed = new GameEvent<PlayerHealedEvent>();
 }
 public struct CurrencyCollectedEvent
 {
@@ -31,9 +32,15 @@ public struct PlayerDamagedEvent
 {
     public float CurrentHealth;
     public float MaxHealth;
-}public struct EnemyDamagedEvent 
+}
+public struct EnemyDamagedEvent 
 {
     public Enemy Enemy;
+}
+public struct PlayerHealedEvent
+{
+    public int HealAmount;
+    public float CurrentHealth;
 }
 
 public struct PlayerStatsResetEvent { }

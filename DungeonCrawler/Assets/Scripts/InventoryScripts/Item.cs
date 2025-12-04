@@ -2,10 +2,8 @@
 
     public class Item : MonoBehaviour
     {
-        [SerializeField] ItemData itemData;
+        [SerializeField] public ItemData ItemData;
         [SerializeField] float timeToDespawn = 30;
-
-        public ItemData ItemData => itemData;
 
         private void Start()
         {
