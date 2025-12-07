@@ -6,8 +6,11 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] List<Enemy> enemiesToSpawn = new List<Enemy>();
+    [SerializeField] int enemiesToSpawnCount;
     [SerializeField] BoxCollider spawnArea;
     [SerializeField] float spawnInterval;
+
+    int spawnCount;
 
     float lastSpawnTime;
 
@@ -36,10 +39,15 @@ public class Spawner : MonoBehaviour
     
     void SpawnEnemies()
     {
-        if (Time.time - lastSpawnTime >= spawnInterval)
+        if (Time.time - lastSpawnTime >= spawnInterval && spawnCount < enemiesToSpawnCount)
         {
             SpawnEnemy();
+            spawnCount++;
             lastSpawnTime = Time.time;
+        }
+        else 
+        { 
+            Destroy(gameObject);
         }
         
     }

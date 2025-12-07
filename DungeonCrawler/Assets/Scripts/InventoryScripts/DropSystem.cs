@@ -38,7 +38,7 @@ public class DropSystem : MonoBehaviour
             if (Random.value <= dropEntry.DropChance)
             {
                 int itemAmount = Random.Range(dropEntry.MinAmount, dropEntry.MaxAmount + 1);
-                Vector3 spawnPos = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
+                Vector3 spawnPos = new Vector3(Random.Range(-1.5f, 1.5f), 0, Random.Range(-1.5f, 1.5f));
                 for (int i = 0; i < itemAmount; i++)
                 { 
                     Instantiate(dropEntry.Item.Prefab,position - spawnPos, Quaternion.identity);
