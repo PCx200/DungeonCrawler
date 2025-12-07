@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e548079823ddd6489c218cdca2c11aa, type: 3}
-  m_Name: KillMichine
+  m_Name: StickCollector
   m_EditorClassIdentifier: 
-  questType: 0
-  questName: Kill Machine
-  description: Kill 20 Goblins.
-  amountToComplete: 20
-  enemyType: {fileID: 287412043236195583, guid: aebca067dcaa61b46aff86fd87ff4020, type: 3}
-  itemToFetch: {fileID: 0}
+  questType: 1
+  questName: Stick Collector
+  description: Collect 40 sticks.
+  amountToComplete: 40
+  enemyType: {fileID: 0}
+  itemToFetch: {fileID: 11400000, guid: 8a9ada2180b42a5438ac4c182c515fee, type: 2}

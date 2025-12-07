@@ -2,15 +2,24 @@ using UnityEngine;
 
 public static class EventBus
 {
+    //econ
     public static GameEvent<CurrencyCollectedEvent> OnCurrencyCollected = new GameEvent<CurrencyCollectedEvent>();
-    public static GameEvent<EnemyDieEvent> OnEnemyDieEvent = new GameEvent<EnemyDieEvent>();
     public static GameEvent<LevelUpEvent> OnLevelUp = new GameEvent<LevelUpEvent>();
-    public static GameEvent<PlayerDeathEvent> OnPlayerDeath = new GameEvent<PlayerDeathEvent>();
+
+    //player
     public static GameEvent<PlayerDamagedEvent> OnPlayerDamaged = new GameEvent<PlayerDamagedEvent>();
-    public static GameEvent<EnemyDamagedEvent> OnEnemyDamaged = new GameEvent<EnemyDamagedEvent>();
+    public static GameEvent<PlayerDeathEvent> OnPlayerDeath = new GameEvent<PlayerDeathEvent>();
     public static GameEvent<PlayerStatsResetEvent> OnStatsReset = new GameEvent<PlayerStatsResetEvent>();
-    public static GameEvent<TakeItemEvent> OnItemTaken = new GameEvent<TakeItemEvent>();
     public static GameEvent<PlayerHealedEvent> OnPlayerHealed = new GameEvent<PlayerHealedEvent>();
+    
+    //enemy
+    public static GameEvent<EnemyDieEvent> OnEnemyDieEvent = new GameEvent<EnemyDieEvent>();
+    public static GameEvent<EnemyDamagedEvent> OnEnemyDamaged = new GameEvent<EnemyDamagedEvent>();
+    
+    //item
+    public static GameEvent<TakeItemEvent> OnItemTaken = new GameEvent<TakeItemEvent>();
+    
+
 }
 public struct CurrencyCollectedEvent
 {
@@ -39,8 +48,9 @@ public struct EnemyDamagedEvent
 }
 public struct PlayerHealedEvent
 {
-    public int HealAmount;
+    public float HealAmount;
     public float CurrentHealth;
+    public Slot Slot;
 }
 
 public struct PlayerStatsResetEvent { }

@@ -9,15 +9,16 @@ public class ItemPresenter : UIPresenter
     [SerializeField] Sprite itemSprite;
     [SerializeField] TextMeshProUGUI itemCountText;
 
-    private void OnEnable()
+    private void Awake()
     {
         EventBus.OnItemTaken.Subscribe(OnItemTaken);
-
+        //EventBus.OnPlayerHealed.Subscribe(OnPlayerHealed);
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         EventBus.OnItemTaken.Unsubscribe(OnItemTaken);
+        //EventBus.OnPlayerHealed.Unsubscribe(OnPlayerHealed); 
     }
 
     public override void RefreshUI()
@@ -32,4 +33,8 @@ public class ItemPresenter : UIPresenter
         itemCountText.text = $"{e.Slot.Amount}";
         RefreshUI();
     }
+    //void OnPlayerHealed(PlayerHealedEvent e)
+    //{
+    //    itemCountText.text = $"{slot.Amount}";
+    //}
 }

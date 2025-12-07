@@ -26,6 +26,7 @@ public class Inventory : MonoBehaviour
             {
                 slot.IncreaseAmount();
                 slot.ItemData = item.ItemData;
+                items.Add(item.ItemData);
                 return slot;
             }
             return null;
@@ -38,12 +39,14 @@ public class Inventory : MonoBehaviour
             {
                 slot.ItemData = item.ItemData;
                 slot.IncreaseAmount();
+                items.Add(item.ItemData);
                 return slot;
             }
 
             if (slot.ItemData == item.ItemData && slot.Amount < item.ItemData.MaxAmount)
             {
                 slot.IncreaseAmount();
+                items.Add(item.ItemData);
                 return slot;
             }
         }
@@ -51,9 +54,9 @@ public class Inventory : MonoBehaviour
         return null;
     }
 
-    public void RemoveItem(Item item)
+    public void RemoveItem(ItemData item)
     {
-        items.Remove(item.ItemData);
+        items.Remove(item);
     }
 
     public Slot GetSlot(int index)

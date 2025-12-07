@@ -237,8 +237,9 @@ public class Player : MonoBehaviour, IDamageable
     {
         if (Keyboard.current.eKey.wasPressedThisFrame && currentHealth < MaxHealth && inventory.GetSlot(0).Amount > 0)
         {
-            //inventory.RemoveItem(inventory.GetSlot(0).item);
-            currentHealth += 10;
+            inventory.RemoveItem(inventory.GetSlot(0).ItemData);
+            inventory.GetSlot(0).DecreaseAmount();
+            currentHealth += MaxHealth * 0.15f;
             EventBus.OnPlayerHealed.Publish(new PlayerHealedEvent { HealAmount = 10, CurrentHealth = currentHealth });
         }
     }

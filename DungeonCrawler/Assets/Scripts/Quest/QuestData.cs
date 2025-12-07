@@ -1,10 +1,22 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewQuest", menuName = "Quests/Quest")]
+
+[CreateAssetMenu(menuName = "Quest/Data")]
 public class QuestData : ScriptableObject
 {
-    public string questName;
+    public QuestType questType;
 
-    [TextArea]
+    public string questName;
     public string description;
-} 
+
+    public int amountToComplete;
+
+    public Enemy enemyType;
+    public ItemData itemToFetch;
+}
+
+public enum QuestType
+{
+    Kill,
+    Fetch
+}
