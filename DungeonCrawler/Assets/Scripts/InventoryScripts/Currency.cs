@@ -1,12 +1,21 @@
-    using UnityEngine;
-    using UnityEngine.Rendering;
+using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewCurrency", menuName = "DropableItems/Currency")]
-public class Currency : ScriptableObject
-    {
-        [SerializeField] GameObject currencyPrefab;
-        [SerializeField] int amount;
+public class Currency : MonoBehaviour
+{
+    int amount;
 
-        public GameObject Prefab => currencyPrefab;
-        public int Amount => amount;
+    public void Initialize(int value)
+    { 
+        amount = value;
+        Destroy(gameObject, 30);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            EventBus.OnCurrencyCollected.Publish(new CurrencyCollectedEvent { Amount = amount });
+            Destroy(gameObject);
+        }
+    }
+}

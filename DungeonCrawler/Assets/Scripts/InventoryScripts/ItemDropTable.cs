@@ -9,9 +9,9 @@ public class ItemDropTable : ScriptableObject
     [SerializeField] List<DropEntry> items;
 
     [Header("Money Drop")]
-    [SerializeField] Currency money;
+    [SerializeField] CurrencyData money;
 
     public List<DropEntry> Items => items;
-    public Currency Money => money;
+    public CurrencyData Money => money;
 }
     

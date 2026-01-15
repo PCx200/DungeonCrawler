@@ -29,7 +29,7 @@ public class DropSystem : MonoBehaviour
         {
             int amount = dropTable.Money.Amount;
             GameObject moneyInstance = Instantiate(dropTable.Money.Prefab, position, Quaternion.identity);
-            moneyInstance.GetComponent<CurrencyPicker>().Initialize(amount);
+            moneyInstance.GetComponent<Currency>().Initialize(amount);
         }
 
         // Drop items if lucky 
