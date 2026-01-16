@@ -15,7 +15,7 @@ MonoBehaviour:
   Health: 30
   Attack: 5
   Defense: 5
-  MovementSpeed: 3
+  MovementSpeed: 2.5
   AttackSpeed: 1
   Mana: 0
   AttackRange: 1
