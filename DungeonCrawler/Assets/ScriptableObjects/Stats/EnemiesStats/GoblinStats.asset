@@ -16,6 +16,6 @@ MonoBehaviour:
   Attack: 5
   Defense: 5
   MovementSpeed: 2.5
-  AttackSpeed: 1
+  AttackSpeed: 0.605
   Mana: 0
   AttackRange: 1

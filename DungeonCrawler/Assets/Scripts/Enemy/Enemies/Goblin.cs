@@ -7,6 +7,7 @@ public class Goblin : Enemy
         base.Awake();
 
         blackboard.moveSpeed = Stats.MovementSpeed;
+        blackboard.attackInterval = 1 / Stats.AttackSpeed;
     }
 
     protected override void Update()
@@ -24,6 +25,15 @@ public class Goblin : Enemy
     {
         blackboard.agent.speed = 0f;
         blackboard.agent.isStopped = true;
+
+        Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
+
+        if (player != null)
+        {
+            DamageData damage = new DamageData(Stats.Attack);
+
+            player.TakeDamage(damage);
+        }
     }
 
     public override void Die()
@@ -53,5 +63,4 @@ public class Goblin : Enemy
         blackboard.agent.speed = Stats.MovementSpeed;
         blackboard.agent.SetDestination(blackboard.targetPosition);
     }
-
 }

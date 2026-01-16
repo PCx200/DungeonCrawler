@@ -18,7 +18,10 @@ public class GoblinFSM : FSM
 
         chase.transitions.Add(new Transition(() => Vector3.Distance(blackboard.stateOwnerTransform.position, blackboard.targetPosition) < 2f, attack));
 
-        attack.transitions.Add(new Transition(() => Vector3.Distance(blackboard.stateOwnerTransform.position, blackboard.targetPosition) > 3f, chase));
+        attack.transitions.Add(new Transition(() => 
+        Vector3.Distance(blackboard.stateOwnerTransform.position, blackboard.targetPosition) > 2f 
+        && attack.IsAttackPerformed, 
+        chase));
 
         idle.transitions.Add(new Transition(() => blackboard.isDead, die));
         chase.transitions.Add(new Transition(() => blackboard.isDead, die));
