@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class HPPotionPresenter : UIPresenter
 {
     [SerializeField] Slot slot;
-    [SerializeField] Sprite itemSprite;
     [SerializeField] TextMeshProUGUI itemCountText;
 
     private void OnEnable()

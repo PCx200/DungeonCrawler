@@ -10,7 +10,13 @@ public class EnemyHPTextPresenter : UIPresenter
 
     public override void RefreshUI()
     {
-        hpText.text = $"{(float)Math.Round(enemy.CurrentHealth, 1)}/{enemy.MaxHealth}";
+        if (enemy.CurrentHealth > 0)
+        {
+            hpText.text = $"{(float)Math.Round(enemy.CurrentHealth, 1)}/{enemy.MaxHealth}";
+        }
+        else {
+            hpText.text = $"{0}/{enemy.MaxHealth}";
+        }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

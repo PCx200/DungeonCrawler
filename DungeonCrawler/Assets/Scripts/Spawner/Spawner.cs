@@ -10,7 +10,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] BoxCollider spawnArea;
     [SerializeField] float spawnInterval;
 
-    int spawnCount;
+    [SerializeField] int spawnCount;
 
     float lastSpawnTime;
 
@@ -30,7 +30,7 @@ public class Spawner : MonoBehaviour
         int randEnemyIndex = Random.Range(0, enemiesToSpawn.Count);
 
         float xPos = Random.Range(transform.position.x - spawnArea.size.x / 2, transform.position.x + spawnArea.size.x / 2);
-        float zPos = Random.Range(transform.position.x - spawnArea.size.z / 2, transform.position.x + spawnArea.size.z / 2);
+        float zPos = Random.Range(transform.position.z - spawnArea.size.z / 2, transform.position.z + spawnArea.size.z / 2);
 
         Vector3 pos = new Vector3(xPos, transform.position.y, zPos);
 
@@ -39,15 +39,16 @@ public class Spawner : MonoBehaviour
     
     void SpawnEnemies()
     {
-        if (Time.time - lastSpawnTime >= spawnInterval && spawnCount < enemiesToSpawnCount)
+        if (spawnCount >= enemiesToSpawnCount)
+        {
+            Destroy(gameObject);
+
+        }
+        else if(Time.time - lastSpawnTime >= spawnInterval)
         {
             SpawnEnemy();
             spawnCount++;
             lastSpawnTime = Time.time;
-        }
-        else 
-        { 
-            Destroy(gameObject);
         }
         
     }
