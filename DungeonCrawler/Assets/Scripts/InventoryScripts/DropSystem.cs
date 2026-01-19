@@ -21,8 +21,17 @@ public class DropSystem : MonoBehaviour
 
     private void HandleEnemyDie(EnemyDieEvent e)
     {
-        ItemDropTable dropTable = e.Enemy.ItemDropTable;
-        Vector3 position = e.Position;
+        ItemDropTable dropTable;
+        if (e.Enemy != null)
+        {
+           dropTable  = e.Enemy.ItemDropTable;
+        }
+        else
+        {
+            dropTable = e.ItemDropTable;
+        }
+
+            Vector3 position = e.Position;
 
         // Drop money
         if (dropTable.Money != null)

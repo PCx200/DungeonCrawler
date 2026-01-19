@@ -8,6 +8,10 @@ public class PlayerHPPresenter : UIPresenter
     [SerializeField] Image hpBar;
     [SerializeField] Player player;
 
+    void Start()
+    { 
+        RefreshUI();
+    }
 
     private void OnEnable()
     {

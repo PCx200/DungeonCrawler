@@ -57,6 +57,7 @@ public class Player : MonoBehaviour, IDamageable
     private void Awake()
     {
         InitializeBaseStats();
+        currentHealth -= 15;
     }
 
     void Start()
@@ -239,8 +240,9 @@ public class Player : MonoBehaviour, IDamageable
         {
             inventory.RemoveItem(inventory.GetSlot(0).ItemData);
             inventory.GetSlot(0).DecreaseAmount();
-            currentHealth += MaxHealth * 0.15f;
-            EventBus.OnPlayerHealed.Publish(new PlayerHealedEvent { HealAmount = 10, CurrentHealth = currentHealth });
+            float appliedHealth = MaxHealth * 0.15f;
+            currentHealth += appliedHealth;
+            EventBus.OnPlayerHealed.Publish(new PlayerHealedEvent { HealAmount = appliedHealth, CurrentHealth = currentHealth });
         }
     }
 }

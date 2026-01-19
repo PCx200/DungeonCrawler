@@ -52,7 +52,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
     protected virtual void Update() 
     { 
-        fsm.Step();
+        fsm.Step(); 
     }
 
     public abstract void Move();

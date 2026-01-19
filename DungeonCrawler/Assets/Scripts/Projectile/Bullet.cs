@@ -26,7 +26,7 @@ public class Bullet : Projectile
     {  
         if (other.CompareTag("Enemy"))
         {
-            other.GetComponent<Enemy>().TakeDamage(damageData);
+            other.GetComponent<IDamageable>().TakeDamage(damageData);
             Destroy(gameObject);
         } 
     }

@@ -18,7 +18,6 @@ public static class EventBus
     
     //item
     public static GameEvent<TakeItemEvent> OnItemTaken = new GameEvent<TakeItemEvent>();
-    
 
 }
 public struct CurrencyCollectedEvent
@@ -29,6 +28,7 @@ public struct CurrencyCollectedEvent
 public struct EnemyDieEvent
 {
     public Enemy Enemy;
+    public ItemDropTable ItemDropTable;
     public Vector3 Position;
     public int XPGivenAmount;
 }
