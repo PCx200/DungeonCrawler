@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Goblin : Enemy
+public class FlyingDevil : Enemy
 {
     protected override void Awake()
     {
@@ -9,16 +9,15 @@ public class Goblin : Enemy
         blackboard.moveSpeed = Stats.MovementSpeed;
         blackboard.attackInterval = 1 / Stats.AttackSpeed;
     }
-
     protected override void Update()
     {
-        ChasePlayer();
+        if (GameObject.FindWithTag("Player") != null)
+        {
+            blackboard.targetPosition = GameObject.FindWithTag("Player").transform.position;
+        }
         base.Update();
     }
-    protected override FSM InitializeFSM()
-    {
-        return new GoblinFSM(blackboard);
-    }
+
     public override void Attack()
     {
         base.Attack();
@@ -31,6 +30,11 @@ public class Goblin : Enemy
 
     public override void Move()
     {
-        base.Move();    
+        base.Move();
+    }
+
+    protected override FSM InitializeFSM()
+    {
+        return new FlyingDevilFSM(blackboard);
     }
 }

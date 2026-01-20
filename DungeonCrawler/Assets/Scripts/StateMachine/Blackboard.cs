@@ -17,6 +17,7 @@ public abstract class Blackboard : MonoBehaviour
     public float attackInterval = 0.5f;      // Time between attacks
     public float distanceThreshold = 0.2f;   // Distance tolerance for reaching a destination
 
+    public bool isDamaged;
     public bool isDead;
 
 }

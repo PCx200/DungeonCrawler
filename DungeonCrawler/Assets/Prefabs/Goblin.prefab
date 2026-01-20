@@ -237,6 +237,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2488921007197992995}
+  - component: {fileID: 1939054040533261566}
   m_Layer: 5
   m_Name: HPBar
   m_TagString: Untagged
@@ -265,6 +266,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &1939054040533261566
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2007608075764161874}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4325cc95ca30fda4d8a2511703b559a3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2297093756840637679
 GameObject:
   m_ObjectHideFlags: 0
@@ -1418,7 +1441,7 @@ MonoBehaviour:
   moveSpeed: 0
   rotateSpeed: 180
   stateOwnerTransform: {fileID: 2783400386707375215}
-  attackInterval: 1.65
+  attackInterval: 1.2
   distanceThreshold: 0.2
   isDead: 0
 --- !u!195 &1840758259926003797

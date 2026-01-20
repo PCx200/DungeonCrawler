@@ -46,10 +46,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemiesToSpawn:
-  - {fileID: 287412043236195583, guid: aebca067dcaa61b46aff86fd87ff4020, type: 3}
-  enemiesToSpawnCount: 5
+  - {fileID: 7380737836060814875, guid: 501b3b80fe1128b49ab7dc3919f1892f, type: 3}
+  enemiesToSpawnCount: 2
   spawnArea: {fileID: 84481151685596837}
   spawnInterval: 0
+  spawnCount: 0
 --- !u!65 &84481151685596837
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -69,5 +70,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 7.4, y: 1, z: 9.9}
+  m_Size: {x: 5, y: 1, z: 5}
   m_Center: {x: 0, y: 0, z: 0}
