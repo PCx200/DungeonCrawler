@@ -55,9 +55,46 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         fsm.Step(); 
     }
 
-    public abstract void Move();
-    public abstract void Attack();
-    public abstract void Die();
+    public virtual void Move()
+    {
+        if (blackboard.isDead) return;
+
+        blackboard.agent.isStopped = false;
+        blackboard.agent.speed = Stats.MovementSpeed;
+        blackboard.agent.SetDestination(blackboard.targetPosition);
+    }
+    public virtual void Attack() 
+    {
+        blackboard.agent.speed = 0f;
+        blackboard.agent.isStopped = true;
+
+        Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
+
+        if (player != null)
+        {
+            DamageData damage = new DamageData(Stats.Attack);
+
+            player.TakeDamage(damage);
+        }
+    }
+    public virtual void Die() 
+    {
+        if (blackboard.isDead) return;
+
+        blackboard.agent.speed = 0f;
+        blackboard.agent.isStopped = true;
+        blackboard.isDead = true;
+
+
+        EventBus.OnEnemyDieEvent.Publish(new EnemyDieEvent()
+        {
+            Enemy = this,
+            Position = transform.position,
+            XPGivenAmount = XPAmount
+        });
+
+        Destroy(gameObject, 3.5f);
+    }
 
     public void TakeDamage(DamageData damageData)
     {
@@ -69,6 +106,8 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
         EventBus.OnEnemyDamaged.Publish(new EnemyDamagedEvent { Enemy = this });
 
+        blackboard.isDamaged = true;
+
         if (currentHealth <= 0)
         {
             Die();
@@ -79,5 +118,13 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     {
         DamageData dmg = new DamageData(10) { damage = 10 };
         TakeDamage(dmg);
+    }
+
+    protected void ChasePlayer()
+    {
+        if (GameObject.FindWithTag("Player") != null)
+        {
+            blackboard.targetPosition = GameObject.FindWithTag("Player").transform.position;
+        }
     }
 }
