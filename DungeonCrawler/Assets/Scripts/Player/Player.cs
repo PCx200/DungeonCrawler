@@ -12,6 +12,8 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] string playerName;
     public string Name => playerName;
 
+    [SerializeField] PlayerBlackboard blackboard;
+
     [SerializeField] NavMeshAgent agent;
 
     [Header("Stats")]
@@ -53,9 +55,12 @@ public class Player : MonoBehaviour, IDamageable
     [Header("Inventory")]
     [SerializeField] Inventory inventory;
 
+    PlayerFSM fsm;
 
     private void Awake()
     {
+
+
         InitializeBaseStats();
         currentHealth -= 15;
     }
@@ -65,10 +70,17 @@ public class Player : MonoBehaviour, IDamageable
         agent.speed = currentMovementSpeed;
         attackCollider.radius = attackRange;
         attackRangeSprite.transform.localScale = new Vector2(attackRange * 2, attackRange * 2);
+
+        blackboard.moveSpeed = progressData.MaxMovementSpeed;
+        blackboard.attackInterval = 1 / baseStatsData.AttackSpeed;
+
+        fsm = new PlayerFSM(blackboard);
+        fsm.Enter();
     }
 
     void Update()
     {
+        fsm.Step();
         Move();
         //ShowRange();
         Attack();
@@ -103,7 +115,7 @@ public class Player : MonoBehaviour, IDamageable
         }
     }
 
-    void Attack()
+    public void Attack()
     {
         if ((Mouse.current.leftButton.wasPressedThisFrame || Mouse.current.leftButton.isPressed) && Time.time - lastAttackTime >= 1 / baseStatsData.AttackSpeed)
         {
@@ -111,7 +123,11 @@ public class Player : MonoBehaviour, IDamageable
             if (!Physics.Raycast(ray, out RaycastHit hit))
                 return;
 
+            blackboard.isAttacking = true;
+
             Vector3 targetPoint = hit.point;
+
+            transform.LookAt(targetPoint);
 
             Vector3 direction = (targetPoint - projectileSpawnPoint.position).normalized;
 
@@ -154,6 +170,8 @@ public class Player : MonoBehaviour, IDamageable
             MaxHealth = progressData.MaxHealth
         });
 
+        blackboard.isDamaged = true;
+
         if (currentHealth <= 0)
         {
             Die();
@@ -178,7 +196,7 @@ public class Player : MonoBehaviour, IDamageable
             Die();
         }
     }
-    private void Die()
+    public void Die()
     {
         Debug.Log("Player died!");
         EventBus.OnPlayerDeath.Publish(new PlayerDeathEvent());
