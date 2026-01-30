@@ -4,39 +4,47 @@ public class SummonState : State
 {
     public bool IsDoneSummoning { get; private set; }
 
-    float timer;
+    float summonDurationTimer;
+
+    WizardBlackboard wizardBlackboard;
+
 
     public SummonState(Blackboard blackboard)
     {
         this.blackboard = blackboard;
+        wizardBlackboard = (WizardBlackboard)this.blackboard;
     }
 
     public override void Enter()
     {
         IsDoneSummoning = false;
-        timer = 0f;
+        summonDurationTimer = 0f;
 
         blackboard.animator.SetBool("isSummoning", true);
         blackboard.agent.isStopped = true;
+
+        wizardBlackboard.lastSummonTime = Time.time;
+
     }
 
     public override void Step()
     {
-        WizardBlackboard wizBB = (WizardBlackboard)blackboard;
+        summonDurationTimer += Time.deltaTime;
 
-        timer += Time.deltaTime;
-
-        if (timer >= wizBB.summonInterval)
+        if (summonDurationTimer >= 2f)
         {
-            timer = 0f;
-            SpawnSpawners(wizBB);
-            IsDoneSummoning = true;
+            SpawnSpawners();
         }
+        if (summonDurationTimer >= wizardBlackboard.summonDuration)
+        { 
+            IsDoneSummoning = true; 
+        }
+
     }
 
-    void SpawnSpawners(WizardBlackboard wizBB)
+    void SpawnSpawners()
     {
-        for (int i = 0; i < wizBB.spawnersPerWave; i++)
+        for (int i = 0; i < wizardBlackboard.spawnersPerWave; i++)
         {
             Vector3 offset = new Vector3(
                 Random.Range(-4f, 4f),
@@ -45,7 +53,7 @@ public class SummonState : State
             );
 
             Object.Instantiate(
-                wizBB.spawnerPrefab,
+                wizardBlackboard.spawnerPrefab,
                 blackboard.stateOwnerTransform.position + offset,
                 Quaternion.identity
             );

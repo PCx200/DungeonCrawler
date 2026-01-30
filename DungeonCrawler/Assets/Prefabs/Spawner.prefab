@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemiesToSpawn:
   - {fileID: 7380737836060814875, guid: 501b3b80fe1128b49ab7dc3919f1892f, type: 3}
-  enemiesToSpawnCount: 2
+  enemiesToSpawnCount: 3
   spawnArea: {fileID: 84481151685596837}
   spawnInterval: 0
   spawnCount: 0

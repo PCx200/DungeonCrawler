@@ -8,4 +8,7 @@ public class WizardBlackboard : Blackboard
     public float summonInterval = 5f;   
     public bool isPhaseTwo;
 
+    public float summonDuration = 5f;
+    public float lastSummonTime; 
+
 }

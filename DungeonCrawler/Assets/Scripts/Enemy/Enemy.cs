@@ -41,10 +41,17 @@ public abstract class Enemy : MonoBehaviour, IDamageable
             return;
         }
 
+        InitializeStats();
+    }
+
+    private void InitializeStats()
+    {
         currentHealth = Stats.Health;
         currentMana = Stats.Mana;
         currentMovementSpeed = Stats.MovementSpeed;
         currentDefense = Stats.Defense;
+
+        blackboard.agent.speed = Stats.MovementSpeed;
     }
 
     protected abstract FSM InitializeFSM();

@@ -132,7 +132,7 @@ MonoBehaviour:
     slowDownTime: 0
     damageType: 0
     source: {fileID: 0}
-  speed: 20
+  speed: 25
   destroyAfter: 0.3
 --- !u!54 &7573747362216803580
 Rigidbody:

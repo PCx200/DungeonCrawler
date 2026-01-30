@@ -14,13 +14,13 @@ public class WizardFSM : FSM
 
         SummonState summon = new SummonState(blackboard);
 
-        idle.transitions.Add(new Transition(() => DistanceToPlayer() < 10f, chase));
-        chase.transitions.Add(new Transition(() => DistanceToPlayer() < 2f, attack));
+        idle.transitions.Add(new Transition(() => DistanceToPlayer() < 18f, chase));
+        chase.transitions.Add(new Transition(() => DistanceToPlayer() < 4.5f, attack));
         attack.transitions.Add(new Transition(() => DistanceToPlayer() > 2.5f && attack.IsAttackPerformed, chase));
 
-        idle.transitions.Add(new Transition(() => IsPhaseTwo(), summon));
-        chase.transitions.Add(new Transition(() => IsPhaseTwo(), summon));
-        attack.transitions.Add(new Transition(() => IsPhaseTwo(), summon));
+        idle.transitions.Add(new Transition(() => CanSummon(), summon));
+        chase.transitions.Add(new Transition(() => CanSummon(), summon));
+        attack.transitions.Add(new Transition(() => CanSummon(), summon));
 
         summon.transitions.Add(new Transition(() => summon.IsDoneSummoning, chase));
 
@@ -29,7 +29,7 @@ public class WizardFSM : FSM
         attack.transitions.Add(new Transition(() => blackboard.isDamaged, damaged));
         summon.transitions.Add(new Transition(() => blackboard.isDamaged, damaged));
 
-        damaged.transitions.Add(new Transition(() => !blackboard.isDamaged && DistanceToPlayer() > 10f, idle));
+        damaged.transitions.Add(new Transition(() => !blackboard.isDamaged && DistanceToPlayer() > 18f, idle));
         damaged.transitions.Add(new Transition(() => !blackboard.isDamaged && DistanceToPlayer() < 10f && !IsPhaseTwo(), chase));
         damaged.transitions.Add(new Transition(() => !blackboard.isDamaged && IsPhaseTwo(), summon));
 
@@ -53,5 +53,11 @@ public class WizardFSM : FSM
     bool IsPhaseTwo()
     {
         return ((WizardBlackboard)blackboard).isPhaseTwo;
+    }
+
+    bool CanSummon()
+    {
+        WizardBlackboard wizBB = (WizardBlackboard)blackboard;
+        return IsPhaseTwo() && DistanceToPlayer() > 6f && Time.time >= wizBB.lastSummonTime + wizBB.summonInterval;
     }
 }
