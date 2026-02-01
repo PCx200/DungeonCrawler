@@ -9,6 +9,5 @@ public class IdleState : State
 
     public override void Step()
     {
-        Debug.Log("Idle");
     }
 }

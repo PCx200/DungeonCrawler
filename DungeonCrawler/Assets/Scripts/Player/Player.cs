@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -200,6 +201,7 @@ public class Player : MonoBehaviour, IDamageable
     {
         Debug.Log("Player died!");
         EventBus.OnPlayerDeath.Publish(new PlayerDeathEvent());
+        blackboard.isDead = true;
     }
 
     public void LevelUp()
@@ -223,6 +225,7 @@ public class Player : MonoBehaviour, IDamageable
         Debug.Log($"Player leveled up to {currentLvl}! Stats increased: +{20} HP, +{5} ATK.");
     }
 
+    [ContextMenu("Reset Stats")]
     public void ResetStats()
     {
         progressData.ResetStats(baseStatsData);

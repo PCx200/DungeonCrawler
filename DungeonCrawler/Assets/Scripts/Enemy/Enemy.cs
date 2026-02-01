@@ -134,4 +134,9 @@ public abstract class Enemy : MonoBehaviour, IDamageable
             blackboard.targetPosition = GameObject.FindWithTag("Player").transform.position;
         }
     }
+
+    public string GetName()
+    {
+        return enemyName;
+    }
 }

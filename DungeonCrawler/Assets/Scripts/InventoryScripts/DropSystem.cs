@@ -21,7 +21,9 @@ public class DropSystem : MonoBehaviour
 
     private void HandleEnemyDie(EnemyDieEvent e)
     {
+
         ItemDropTable dropTable;
+
         if (e.Enemy != null)
         {
            dropTable  = e.Enemy.ItemDropTable;
