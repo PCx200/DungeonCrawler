@@ -13,6 +13,8 @@ public class PlayerAttackState : State
         timer = 0f;
         attackPerformed = false;
         blackboard.animator.SetBool("isAttacking", true);
+        blackboard.animator.SetBool("isMoving", false);
+        blackboard.agent.isStopped = true;
     }
 
     public override void Step()
@@ -37,6 +39,7 @@ public class PlayerAttackState : State
     public override void Exit()
     {
         blackboard.animator.SetBool("isAttacking", false);
+        blackboard.agent.isStopped = false;
     }
 }
 

@@ -9,6 +9,7 @@ public class PlayerDamagedState : State
     public override void Enter()
     {
         blackboard.animator.SetBool("isDamaged", true);
+        blackboard.agent.isStopped = true;
     }
 
     public override void Step()
@@ -24,6 +25,7 @@ public class PlayerDamagedState : State
     public override void Exit()
     {
         blackboard.animator.SetBool("isDamaged", false);
+        blackboard.agent.isStopped = false;
     }
 }
 

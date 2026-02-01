@@ -13,13 +13,16 @@ public class PlayerFSM : FSM
         PlayerDieState die = new PlayerDieState(blackboard);
 
         idle.transitions.Add(new Transition(() => ((PlayerBlackboard)blackboard).isAttacking, attack));
-        attack.transitions.Add(new Transition(() => !((PlayerBlackboard)blackboard).isAttacking, idle));
+        attack.transitions.Add(new Transition(() => !((PlayerBlackboard)blackboard).isAttacking, move));
 
         idle.transitions.Add(new Transition(() =>
             blackboard.agent.velocity.magnitude > 1f, move));
 
         move.transitions.Add(new Transition(() =>
-            blackboard.agent.velocity.magnitude < 1f, idle));
+            blackboard.agent.velocity.magnitude < 1f && !((PlayerBlackboard)blackboard).isAttacking, idle));
+
+        move.transitions.Add(new Transition(() =>
+            ((PlayerBlackboard)blackboard).isAttacking, attack));
 
         idle.transitions.Add(new Transition(() => blackboard.isDamaged, damaged)); 
         move.transitions.Add(new Transition(() => blackboard.isDamaged, damaged)); 

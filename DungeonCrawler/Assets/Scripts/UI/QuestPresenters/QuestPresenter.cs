@@ -33,6 +33,10 @@ public class QuestPresenter : UIPresenter
     public override void RefreshUI()
     {
         progressText.text = $"Progress: ({progress}/{questData.amountToComplete})";
+        if (progress >= questData.amountToComplete)
+        {
+            progressText.text = $"Quest Completed!";
+        }
     }
 
     void OnEnemyKilled(EnemyDieEvent e)

@@ -128,23 +128,32 @@ public class Player : MonoBehaviour, IDamageable
 
             Vector3 targetPoint = hit.point;
 
-            transform.LookAt(targetPoint);
-
-            Vector3 direction = (targetPoint - projectileSpawnPoint.position).normalized;
-
-            DamageData dmg = new DamageData(
-                currentAttack,
-                DamageType.Physical,
-                0, 0,
-                gameObject
-            );
-
-            Bullet bulletObj = Instantiate(bulletPrefab, projectileSpawnPoint.position, Quaternion.LookRotation(direction));
-
-            bulletObj.GetComponent<Bullet>().Initialize(dmg);
+            StartCoroutine(FireBulletAfterDelay(0.2f,targetPoint));
 
             lastAttackTime = Time.time;
-        }   
+        }
+    }
+
+    IEnumerator FireBulletAfterDelay(float delay,Vector3 targetPoint)
+    {
+        transform.LookAt(targetPoint);
+
+        Vector3 direction = (targetPoint - projectileSpawnPoint.position).normalized;
+
+        DamageData dmg = new DamageData(
+            currentAttack,
+            DamageType.Physical,
+            0, 0,
+            gameObject
+        );
+
+        yield return new WaitForSeconds(delay);
+
+        Bullet bulletObj = Instantiate(bulletPrefab, projectileSpawnPoint.position, Quaternion.LookRotation(direction));
+
+        bulletObj.GetComponent<Bullet>().Initialize(dmg);
+
+        transform.LookAt(targetPoint);
     }
 
     void ShowRange()
