@@ -22,7 +22,7 @@ public class BreakableTest
 
         yield return null;
 
-        Assert.IsTrue(breakable == null || breakable.Equals(null),
+        Assert.IsTrue(breakable == null || breakable.gameObject == null,
             "Breakable should be destroyed after TakeDamage is called.");
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class AttackState : State
 {
-    private float timer;
+    float timer;
     bool attackPerformed;
     public AttackState(Blackboard blackboard)
     {

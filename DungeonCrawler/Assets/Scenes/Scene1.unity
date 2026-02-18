@@ -1273,7 +1273,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 8141074507064534095}
-  XPBar: {fileID: 2140566201}
 --- !u!1001 &218043612
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6799,6 +6798,17 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!114 &1159933723 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9151242196293003158, guid: aadedd75e8ee1964ea2480bbab84eeca, type: 3}
+  m_PrefabInstance: {fileID: 4940716222041926619}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1162756785
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12398,17 +12408,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 416136, guid: 0e749be40a6b4f60935cf7e490b57d1e, type: 3}
   m_PrefabInstance: {fileID: 2129024213}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2140566201 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1383486451190254999, guid: aadedd75e8ee1964ea2480bbab84eeca, type: 3}
-  m_PrefabInstance: {fileID: 4940716222041926619}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2143292218
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13380,6 +13379,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 8141074507064534095}
+    - target: {fileID: 1923866810749165913, guid: aadedd75e8ee1964ea2480bbab84eeca, type: 3}
+      propertyPath: ItemData
+      value: 
+      objectReference: {fileID: 11400000, guid: 87bd2a9da6969e246a67e6971c6c50fa, type: 2}
     - target: {fileID: 1962836058187913207, guid: aadedd75e8ee1964ea2480bbab84eeca, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -13516,6 +13519,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7160997116817183054, guid: aadedd75e8ee1964ea2480bbab84eeca, type: 3}
+      propertyPath: itemImage
+      value: 
+      objectReference: {fileID: 1159933723}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

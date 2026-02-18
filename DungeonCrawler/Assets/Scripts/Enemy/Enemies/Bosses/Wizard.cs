@@ -3,8 +3,8 @@ using UnityEngine;
 public class Wizard : Enemy
 {
     [Header("Wizard Projectile Settings")]
-    public GameObject projectilePrefab;
-    public Transform projectileSpawnPoint;
+    [SerializeField] GameObject projectilePrefab;
+    [SerializeField] Transform projectileSpawnPoint;
 
     protected override void Awake()
     {

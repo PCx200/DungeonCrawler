@@ -95,7 +95,6 @@ MonoBehaviour:
   isEmpty: 0
   amount: 0
   ItemData: {fileID: 0}
-  CountText: {fileID: 2329105479820410730}
 --- !u!1 &1315668195171312582
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,6 +198,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -322,4 +322,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slot: {fileID: 5853926296733016286}
   itemSprite: {fileID: 21300000, guid: 4f033cdd2b09f9a43b139729d09d002c, type: 3}
+  itemImage: {fileID: 3587260465987170482}
   itemCountText: {fileID: 2329105479820410730}

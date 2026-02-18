@@ -6,35 +6,48 @@ using UnityEngine.UI;
 public class ItemPresenter : UIPresenter
 {
     [SerializeField] Slot slot;
-    [SerializeField] Sprite itemSprite;
+    [SerializeField] Image itemImage;
     [SerializeField] TextMeshProUGUI itemCountText;
 
     private void Awake()
     {
         EventBus.OnItemTaken.Subscribe(OnItemTaken);
-        //EventBus.OnPlayerHealed.Subscribe(OnPlayerHealed);
+    }
+
+    private void OnEnable()
+    {
+        RefreshUI();
     }
 
     private void OnDestroy()
     {
         EventBus.OnItemTaken.Unsubscribe(OnItemTaken);
-        //EventBus.OnPlayerHealed.Unsubscribe(OnPlayerHealed); 
     }
 
     public override void RefreshUI()
     {
-        gameObject.GetComponent<Image>().sprite = itemSprite;
+        if (slot == null || slot.ItemData == null) 
+        { 
+            itemCountText.text = ""; 
+            return; 
+        }
+
+        itemImage.sprite = slot.ItemData.Icon;
+
+        // dont display the amount if it is one
+        if (slot.Amount == 1)
+        {
+            itemCountText.text = "";
+        }
+        else
+        { 
+            itemCountText.text = $"{slot.Amount}";
+        }
     }
 
     void OnItemTaken(TakeItemEvent e)
     {
         if (e.Slot != slot) return;
-        itemSprite = e.Item.ItemData.Icon;
-        itemCountText.text = $"{e.Slot.Amount}";
         RefreshUI();
     }
-    //void OnPlayerHealed(PlayerHealedEvent e)
-    //{
-    //    itemCountText.text = $"{slot.Amount}";
-    //}
 }

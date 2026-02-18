@@ -11,8 +11,6 @@ public class XPManager : MonoBehaviour
 
     [SerializeField] Player player;
 
-    [SerializeField] Image XPBar;
-
     public int CurrentXP => player.ProgressData.XP;
     public int CurrentLevel => player.ProgressData.Level;
 
@@ -26,8 +24,6 @@ public class XPManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-
-        XPBar.fillAmount = (float)player.ProgressData.XP / player.ProgressData.XPToNextLevel;
     }
     private void OnEnable()
     {

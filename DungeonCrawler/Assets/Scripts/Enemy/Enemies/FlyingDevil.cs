@@ -11,10 +11,7 @@ public class FlyingDevil : Enemy
     }
     protected override void Update()
     {
-        if (GameObject.FindWithTag("Player") != null)
-        {
-            blackboard.targetPosition = GameObject.FindWithTag("Player").transform.position;
-        }
+        ChasePlayer();
         base.Update();
     }
 
